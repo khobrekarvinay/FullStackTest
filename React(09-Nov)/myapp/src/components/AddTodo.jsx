@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import fetchTodos from '../components/TodoList'
 
 const AddTodo = () => {
   const [task, setTask] = useState('');
@@ -18,6 +19,7 @@ const AddTodo = () => {
       if (response.data.success) {
         toast.success('Todo added successfully!');
         setTask(''); 
+        fetchTodos();
       }
     } catch (error) {
       toast.error('Failed to add todo');

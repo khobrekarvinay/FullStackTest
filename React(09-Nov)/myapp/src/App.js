@@ -7,23 +7,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 function App() {
-  useEffect(() => {
-    const checkBackendConnection = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/test'); 
+  // useEffect(() => {
+  //   const checkBackendConnection = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:8000/test'); 
         
-        if (response.data.success) {
-          toast.success(data.message);
-        } else {
-          toast.error('Backend connection failed!');
-        }
-      } catch (error) {
-        toast.error('Failed to connect to the backend');
-      }
-    };
+  //       if (response.data.success) {
+  //         toast.success(response.data.message);
+  //       } else {
+  //         toast.error('Backend connection failed!');
+  //       }
+  //     } catch (error) {
+  //       toast.error('Failed to connect to the backend');
+  //     }
+  //   };
 
-    checkBackendConnection(); 
-  }, []);
+  //   checkBackendConnection(); 
+  // }, []);
 
   return (
     <div className="App">
@@ -36,3 +36,10 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
