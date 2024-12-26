@@ -1,6 +1,115 @@
 // DATA STRUCTURES & ALGO --------------------------------------
 
 
+
+///Q. What are the different types of Loops in Jscript ? --------------------------
+//-> In JavaScript, loops are used to repeatedly execute a block of code as long as a condition is true.
+
+//1. For loop: ----------------
+// Used when you know in advance how many times you need to iterate.
+for (initialization; condition; update) {
+ // Code to execute
+  }
+//Eg: 
+for (let i = 0; i < 5; i++) {
+    console.log(i); // Outputs: 0, 1, 2, 3, 4
+  }
+  
+//2. While loop: --------------
+// Executes a block of code as long as the condition is true.
+while (condition) { // Code to execute
+  }
+//Eg:
+    let i = 0;
+    while (i < 5) {
+    console.log(i); // Outputs: 0, 1, 2, 3, 4
+     i++;
+      }
+
+//3. Do...While Loop: --------------
+// Similar to the while loop, but it executes the code at least once before checking the condition.
+do { // Code to execute
+  } while (condition);
+//Eg:  
+    let j = 0;
+     do {
+     console.log(j); // Outputs: 0, 1, 2, 3, 4
+       j++;
+    } while (i < 5);
+
+//4. For..In Loop: -----------------
+// Iterates over the keys (properties) of an object.
+const person = { name: "John", age: 25 };
+for (let key in person) {
+  console.log(`${key}: ${person[key]}`); // Outputs: name: John, age: 25
+}
+
+//5. For...Of Loop: ---------------
+// Iterates over the values of iterable objects like arrays, strings, or maps.
+const numbers = [10, 20, 30];
+for (let num of numbers) {
+  console.log(num); // Outputs: 10, 20, 30
+}
+
+//6. Break and Continue keywords: -----------
+// These are not loops but can control loop behavior:
+
+//break: Stops the loop entirely.
+//continue: Skips the current iteration and moves to the next one.
+
+for (let i = 0; i < 5; i++) {
+    if (i === 3) break;
+    console.log(i); // Outputs: 0, 1, 2
+  }
+  
+  for (let i = 0; i < 5; i++) {
+    if (i === 3) continue; // Skips loop for when i is 3. 
+    console.log(i); // Outputs: 0, 1, 2, 4
+  }
+  
+//7. forEach (Array Method): -------------------- 
+// Used specifically for arrays to iterate over each element.
+
+// const fruits = ["apple", "banana", "cherry"];
+fruits.forEach((fruit) => {
+    console.log(fruit); // Outputs: apple, banana, cherry
+  });
+  
+
+
+////Q. What is the difference between map(), filter() and reduce() ? ------------------------------------------------
+//-> All are array methods used for processing arrays.
+
+// Map(): Used to apply a function to every element in the array & create a new array with the transformed elements. 
+const numbers1 = [1, 2, 3, 4];
+const doubled = numbers1.map(num => num * 2); 
+console.log(doubled); // Output: [2, 4, 6, 8]
+
+// Filter(): Returns a new array with only the elements that satisfy the condition.
+
+const numbers2 = [1, 2, 3, 4];
+const evens = numbers2.filter(num => num % 2 === 0);
+console.log(evens); // Output: [2, 4]
+
+// Reduce(): Reduce the array to a single value, array or object. Has accumulator to store the value.
+
+const numbers3 = [1, 2, 3, 4];
+const sum = numbers3.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+console.log(sum); // Output: 10
+
+
+////Q. What is a Callback ?
+//-> A function passed to another function to be executed later. 
+// Eg: map(), filter(), and reduce() are methods that take a callback and apply it to each item in the array.
+// Instead of writing the logic inside the map(), filter(), or reduce() method itself, you can create a separate function (callback) and pass it in.
+
+// It's called 'Callback' because it's being called again for each element. 
+
+
+
+// --------------------------------------------------------------------------------- // 
+
+
 // 1. Reverse a string
 //-> Push elements in array in reverse order
 

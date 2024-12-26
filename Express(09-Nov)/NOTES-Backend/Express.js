@@ -19,103 +19,12 @@
 // & parsing request bodies (e.g; express.json()) for JSON data, CORS for handling req, res on different URLs.
 
 
-////Q. What are Middlewares --------------------------------------------------
-
-//-> Middlewares is a function that sits between the request (req) sent by the client & the response (res) sent by the server.
-// Middleware functions can perform operations on the request and response objects, handle errors, or end the request-response cycle. 
-// There are 3 types of middlewares.
-
-//1. Built-in Middlewares: These are middlewares provided by Express itself. 
-
-app.use(express.json()); // Parses JSON data in the request body.
-app.use(express.static('public')); // Serves static files.
-
-//2. Third-party Middlewares: Provided by external libraries. Eg: cors, body-parser, morgan
-
-const cors = require('cors');
-app.use(cors()); 
-
-//3. Custom Middlewares: Making custom middlewares for specific tasks. They take (req, res, next) as arguments.
-// next() is a function to pass control to the next middleware in the stack. req and res objects are passed so that they can be modified.
-
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next(); // Pass control to the next middleware.
-});
-
-// How Middlewares Work -----------------------------------------------------
-
-// Middleware functions of any type are executed sequentially in the order they are defined. 
-// Each middleware function can :
-// Modify the req, res object.
-// Stop the request-response cycle.
-// Call next() to pass control to the next middleware.
-
-//Example of Sequential Middleware Execution Order in Server.js
-
-const express = require('express');
-const app1 = express();
-
-// Built-in middleware
-app.use(express.json()); // Middleware 1
-
-// Custom middleware
-app.use((req, res, next) => {
-  console.log('Middleware 2 - Custom');
-  next();
-});
-
-// Another built-in middleware
-app.use(express.static('public')); // Middleware 3
-
-// Route handler
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
-
-// Start server
-app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
-});
-
-// Middlware execution order for the 'get' request above is :
-// first express.json(), 
-// then Custom middleware 2
-// then express.static('public')
-
-// Why the order is important ? 
-// Middleware earlier in the stack can modify the request (e.g., parsing JSON) before it reaches later middleware or route handlers.
-// That's why most are always defined before the get or post requests. 
-// Some like Error-handling middleware should typically be defined last to catch errors from all preceding middleware and route handlers.
-
-
-
-////Q. What is CORS ?----------------------------------------------------------------------
-
-// CORS (Cross-Origin Resource Sharing) is a security feature implemented in web browsers to control how resources on a server are requested by another domain.
-// In other words, it helps manage requests from a different origin than the server’s own. An origin includes the domain, protocol, and port number. 
-// If any of these differ between the requesting client and the server, the request is considered cross-origin. 
-
-// The "same-origin" policy prevents web applications running at one origin from interacting with resources at another. Without CORS, a frontend application 
-// hosted on http://localhost:3000 cannot make requests to a backend at http://localhost:8000, as they are considered different origins.
-
-app.use(cors()); // Syntax to enable cors in server.js
-
-
-////Q. Auto Parsing with express.json() ----------------------------------------------------
-
-app.use(express.json()) // Add this line in main server file
-
-//express.json() is a built-in middleware in Express, it auto parses incoming requests with JSON payloads and makes the data available
-// in req.body as a JavaScript object.
-// express.json() also manages parsing errors for malformed JSON, so if a client sends invalid JSON, the middleware will respond with a 400 Bad Request error.
-
-
 
 ////Q. HTTP Requests in Express -------------------------------------------------
 
 //-> HTTP requests are the messages sent by a client like web browser or mobile app, to a server to request data, send data or perform actions. 
 // The server processes the request and responds with data, status code, and more. 
+// In simple words they allow the exchange of data between client and server. 
 
 // Express is a Node.js framework that helps handle HTTP requests efficiently. Common HTTP methods. 
 // GET: Retrieve data from the server.
@@ -189,7 +98,97 @@ app.listen(3000, () => {
 });
 
 
-// 
+////Q. What are Middlewares ---------------------------------------------------------------
+
+//-> Middlewares is a function that sits between the request (req) sent by the client & the response (res) sent by the server.
+// Middleware functions can perform operations on the request and response objects, handle errors, or end the request-response cycle. 
+// There are 3 types of middlewares.
+
+//1. Built-in Middlewares: These are middlewares provided by Express itself. 
+
+app.use(express.json()); // Parses JSON data in the request body.
+app.use(express.static('public')); // Serves static files.
+
+//2. Third-party Middlewares: Provided by external libraries. Eg: cors, body-parser, morgan
+
+const cors = require('cors');
+app.use(cors()); 
+
+//3. Custom Middlewares: Making custom middlewares for specific tasks. They take (req, res, next) as arguments.
+// next() is a function to pass control to the next middleware in the stack. req and res objects are passed so that they can be modified.
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next(); // Pass control to the next middleware.
+});
+
+// How Middlewares Work -----------------------------------------------------
+
+// Middleware functions of any type are executed sequentially in the order they are defined. 
+// Each middleware function can :
+// Modify the req, res object.
+// Stop the request-response cycle.
+// Call next() to pass control to the next middleware.
+
+//Example of Sequential Middleware Execution Order in Server.js
+
+const express = require('express');
+const app1 = express();
+
+// Built-in middleware
+app.use(express.json()); // Middleware 1
+
+// Custom middleware
+app.use((req, res, next) => {
+  console.log('Middleware 2 - Custom');
+  next();
+});
+
+// Another built-in middleware
+app.use(express.static('public')); // Middleware 3
+
+// Route handler
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+// Start server
+app.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
+
+// Middlware execution order for the 'get' request above is :
+// first express.json(), 
+// then Custom middleware 2
+// then express.static('public')
+
+// Why the order is important ? 
+// Middleware earlier in the stack can modify the request (e.g., parsing JSON) before it reaches later middleware or route handlers.
+// Middlewares like authentication need to be before the request goes to main operation controllers. 
+// Some like Error-handling middleware should typically be defined last to catch errors from all preceding middleware and route handlers.
+
+
+
+////Q. What is CORS ?----------------------------------------------------------------------
+
+// CORS (Cross-Origin Resource Sharing) is a security feature implemented in web browsers to control how resources on a server are requested by another domain.
+// In other words, it helps manage requests from a different origin than the server’s own. An origin includes the domain, protocol, and port number. 
+// If any of these differ between the requesting client and the server, the request is considered cross-origin. 
+
+// The "same-origin" policy prevents web applications running at one origin from interacting with resources at another. Without CORS, a frontend application 
+// hosted on http://localhost:3000 cannot make requests to a backend at http://localhost:8000, as they are considered different origins.
+
+app.use(cors()); // Syntax to enable cors in server.js
+
+
+////Q. Auto Parsing with express.json() ----------------------------------------------------
+
+app.use(express.json()) // Add this line in main server file
+
+//express.json() is a built-in middleware in Express, it auto parses incoming requests with JSON payloads and makes the data available
+// in req.body as a JavaScript object.
+// express.json() also manages parsing errors for malformed JSON, so if a client sends invalid JSON, the middleware will respond with a 400 Bad Request error.
+
 
 
 
