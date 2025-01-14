@@ -21,7 +21,7 @@ localStorage.clear();
 /////// What is Session Storage ? -------------------------------------------------------
 
 //-> Same thing as Local Storage. Only differences being Session Storage is cleared when the browser tab is closed whereas
-// Local Storage data remains even after closing. And second difference is that it's tab-specific. Data is not shared between tabs,
+// Local Storage data remains even after closing. And second difference is that it's 'tab-specific'. Data is not shared between tabs,
 // even for the same origin. Whereas local is shared across all tabs and windows for the same origin. Here's the syntax: 
 
 // Set an item 

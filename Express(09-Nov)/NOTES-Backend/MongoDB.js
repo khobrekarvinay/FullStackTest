@@ -1,6 +1,5 @@
 
 
-
 ///////Q. What is Mongoose ?
 //-> Mongoose is a JavaScript object-oriented programming library that creates a connection between MongoDB and the Node.js
 // JavaScript runtime environment. Syntax:
@@ -12,6 +11,7 @@ mongoose
 // the connection is successful
 
 
+//__________________________________________________________________________________________________________
 
 //Q. Some MongoDB methods provided by Mongoose
  //-> Most basic are the CRUD operations (Create, Read, Update & Delete)
@@ -31,8 +31,8 @@ User.findOne({ email: "example@example.com" }); // Syntax when using Mongoose.
 // information about all the users in an application. Unlike tables in relational databases, collections don’t require a fixed schema.
 // Each document within a collection can have a different structure, which allows for flexibility in the data model
 
-//Here are the CRUD Operations
-//1. CREATE: 
+// Here are the CRUD Operations
+//1. CREATE: --------------------------
 //The insertOne() and insertMany() methods add documents to a collection. InsertOne() inserts single document to the collection. Eg:
 db.collection('users').insertOne({ name: "Alice", age: 25 });
 
@@ -42,7 +42,7 @@ db.collection('users').insertMany([
  { name: "Carol", age: 22 }
 ]);
 
-//2. READ:
+//2. READ: ----------------------------
 //The findOne() and find() methods retrieve documents from a collection.
 // FindOne() finds the first document that matches the given query. Eg:
 db.collection('users').findOne({ name: "Alice" });
@@ -54,7 +54,7 @@ db.collection('users').findOne({ name: "Alice" });
 const cursor = db.collection('users').find({ age: { $gt: 20 } }); // greater than
 const results = await cursor.toArray(); // Converts the cursor object into an array of documents
 
-//3. UPDATE: 
+//3. UPDATE: --------------------------
 // The updateOne(), updateMany(), and replaceOne() methods modify documents in a collection.
 // UpdateOne() update the first document that matches the query. Eg:
 
@@ -78,7 +78,7 @@ const result2 = await db.collection('users').replaceOne(
 );
 console.log(result2.modifiedCount); // 1 if a document was replaced
 
-//4. DELETE: 
+//4. DELETE: --------------------------
 // The deleteOne() and deleteMany() methods remove documents from a collection.
 // DeleteOne() deletes the first document that matches the query. Eg:
 
@@ -90,6 +90,7 @@ const result4 = await db.collection('users').deleteMany({ age: { $lt: 25 } }); /
 console.log(result4.deletedCount); // Number of documents deleted
 
 
+//___________________________________________________________________________________________________
 
 ////////Q. Defining a Model with Mongoose 
 

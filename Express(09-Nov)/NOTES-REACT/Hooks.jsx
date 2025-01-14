@@ -1,5 +1,11 @@
 
 
+///Q. What are Hooks in React ? ////// ------------------------------
+// React Hooks are functions that allow developers to use React features from within function components.
+
+
+//-> React Hooks are functions that allow developers to use React features from within function components
+
 //////// 1. UseState Hook ///////// ----------------------------------
 
 
@@ -70,65 +76,7 @@ export default Counter;
 
 
 
-///// 3. UseEffect Hook ///////// ------------------------------------
-
-// The useEffect hook is used in React to run side code/effects in your component. Side effects include things like:
-
-// 1. Fetching Data: Getting data from an API.
-// 2. Updating the DOM: Changing the page title or managing timers.
-// 3. Setting up Subscriptions: For example, listening to events. 
-
-// useEffect runs code right after the component renders. Mostly used for fetching data directly after page load. Example you login into
-// a Clothing app the app automatically loads all the clothes and offers, that's only possible thorugh useEffect. 
-
-// Syntax: useEffect((func) => {something}, [dependencyArray])
-
-//Function is sent as parameter cause it gives React more control on cleanup & execution. 
-//The function is executed only after the render cycle is completed that is what actually needed. 
-//Plus becoz it's a func React knows how to cleanup sideEffects like timers, event listeners, etc instead of causing memory leaks.
-
-// If dependency array is skipped, useEffect runs after every render
-// If empty array is provided, useEffect runs only once, after the first render.
-// IF variable is provided, useEffect runs only when those variables change. 
-// Basic Example fetching movie data.
-
-import React, { useState, useEffect } from 'react';
-
-function MovieList() {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    fetch('https://api.example.com/movies')
-      .then(response => response.json())
-      .then(data => setMovies(data));
-  }, []); // The empty array means this runs only once, after the first render.
-
-  return (
-    <ul>
-      {movies.map(movie => (
-        <li key={movie.id}>{movie.title}</li>
-      ))}
-    </ul>
-  );
-}
-
-// Let's say you have a seach box in your website that should change the displayed products directly as the text inside it changes
-// you need to pass the searchquery to the dependency array. so for every new letter typed useEffect runs the fetch method again.
-
-useEffect(() => {
-  fetch(`https://api.example.com/movies?search=${searchQuery}`)
-    .then(response => response.json())
-    .then(data => setMovies(data));
-}, [searchQuery]); // Re-runs whenever 'searchQuery' changes
-
-
-// UseEffect is also used for setting up timers & intervals. 
-// The working behind all other uses is the same. Some function that needs to run right after render. 
-
-
-
-
-////// 4. UseContext Hook ///// --------------------------------
+////// 3. UseContext Hook ///// ------------------------------------------------------------------
 
 // Think of Context as a way to store data globally (like a global variable) that can be shared with any component in the app.
 // The useContext hook lets you get or use that data easily in any component. 
@@ -191,6 +139,159 @@ export { ThemeContext, ThemeProvider }; // Exporting Themecontext to make more g
 // Maintaining state for complex apps like e-commerce globally more simpler than useContext.
 // Also provides tools like Redux Thunk or Saga for async actions. Easier and Faster to scale. 
 
+
+
+
+
+///// 4. UseEffect Hook ///////// --------------------------------------------------------------------
+
+// The useEffect hook is used in React to run side code/effects in your component. Side effects include things like:
+
+// 1. Fetching Data: Getting data from an API.
+// 2. Updating the DOM: Changing the page title or managing timers.
+// 3. Setting up Subscriptions: For example, listening to events. 
+
+// useEffect runs code right after the component renders. Mostly used for fetching data directly after page load. Example you login into
+// a Clothing app the app automatically loads all the clothes and offers, that's only possible thorugh useEffect. 
+
+// Syntax: useEffect((func) => {something}, [dependencyArray])
+
+//Function is sent as parameter cause it gives React more control on cleanup & execution. 
+//The function is executed only after the render cycle is completed that is what actually needed. 
+//Plus becoz it's a func React knows how to cleanup sideEffects like timers, event listeners, etc instead of causing memory leaks.
+
+// If dependency array is skipped, useEffect runs after every render
+// If empty array is provided, useEffect runs only once, after the first render.
+// IF variable is provided, useEffect runs only when those variables change. 
+// Basic Example fetching movie data.
+
+import React, { useState, useEffect } from 'react';
+
+function MovieList() {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch('https://api.example.com/movies')
+      .then(response => response.json())
+      .then(data => setMovies(data));
+  }, []); // The empty array means this runs only once, after the first render.
+
+  return (
+    <ul>
+      {movies.map(movie => (
+        <li key={movie.id}>{movie.title}</li>
+      ))}
+    </ul>
+  );
+}
+
+// Let's say you have a seach box in your website that should change the displayed products directly as the text inside it changes
+// you need to pass the searchquery to the dependency array. so for every new letter typed useEffect runs the fetch method again.
+
+useEffect(() => {
+  fetch(`https://api.example.com/movies?search=${searchQuery}`)
+    .then(response => response.json())
+    .then(data => setMovies(data));
+}, [searchQuery]); // Re-runs whenever 'searchQuery' changes
+
+
+// UseEffect is also used for setting up timers & intervals. 
+// The working behind all other uses is the same. Some function that needs to run right after render. 
+
+
+
+
+
+////// 5. UseCallback Hook ///// --------------------------------------------------------------
+
+// UseCallback is a React Hook that memoizes (saves results) a function so that it doesn't get recreted on every render. 
+// This can help optimize performance by preventing unnecessary re-renders, esp. when passing callback functions to child components. 
+
+// Use this If you have a function that is passed as a prop to child components & you want to avoid re-creating functions that don't need to change. 
+// useCallback also has dependency array. 
+// If dependency array is empty, the function is created once once. 
+// With given dependency it will recreate the function whenever any of those dependencies change. 
+// No dependacy array will recreate the function on every render. 
+
+
+const handleClick = useCallback(() => { // Without useCallback, handleclick will execute on every render.
+  console.log("Button clicked!");
+}, []);
+
+return (
+  <div>
+    <button onClick={() => setCount(count + 1)}>Increment</button>
+    <Child onClick={handleClick} />   // props passed to Child function
+  </div>
+);
+function Child({ onClick }) {
+  console.log("Child re-rendered");
+  return <button onClick={onClick}>Click Me</button>;
+}
+
+// Rule for dependecy array- If your function relies on changing state or props, include them:
+
+// const increment = useCallback(() => {
+//   setCount(count + 1);
+// }, [count]); // Recreate `increment` every time `count` changes.
+
+
+
+
+////// 6. UseMemo Hook /// ----------------------------------------------------------------------------------
+
+// useMemo is a React hook used to optimize performance by memoizing the result of a function.
+// It ensures that a computed value is only recalculated when its dependencies change, avoiding unnecessary calculations during re-renders.
+// Also has dependency array that works the same way. Empty = once, With = changes, None = Everytime. 
+
+const memoizedValue = useMemo(() => 
+  expensiveFunction(a, b)
+,[a, b]);
+
+// Dependency array has to be passed either empty or with dependency or useMemo is useless. 
+// 
+
+ const fibonacci = useMemo(() => {
+  console.log("Computing Fibonacci...");
+  return calculateFibonacci(number); // Assume this is an expensive function
+}, [number]);
+
+// Only recomputes when `number` changes. 
+// UseMemo is only used for expensive computations. 
+
+// Difference : Result is memoized here. Whereas in UseCallback we memoize the function itself. 
+
+
+
+/////// 7. React.Memo --------------------------------------------------------------------------
+
+// React.memo is a higher-order component (HOC) that helps optimize the performance of a React component by memoizing its output. 
+// If the props of the component don’t change between renders, React will skip re-rendering that component and reuse the last rendered result.
+
+// I have two counters here: Only one is passed as props to Child. 
+
+import React, { useState } from 'react';
+
+const Child = React.memo((props) => {
+  console.log('Child re-rendered!');
+  return <p>Child Component - Count: {props.count}</p>;
+});
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [other, setOther] = useState(0);
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <button onClick={() => setOther(other + 1)}>Increment Other</button>
+      <Child count={count} />
+    </div>
+  );
+}
+
+// Without React.Memo child component re-renders even after Other counter is clicked which isn't needed. 
+// React.Memo only works for functional components. 
 
 
 

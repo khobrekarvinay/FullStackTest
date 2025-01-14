@@ -33,7 +33,7 @@
 // DELETE: Delete a resource on the server.
 
 
-/////Q. Making HTTP Requests in Express. -----------------------------------------
+/////Q. How to make HTTP Requests in Express. -----------------------------------------
 
 //-> First understand the 'req' and 'res' objects as they are passed as paramters in every HTTP request. 
 
@@ -52,6 +52,9 @@
  res.status() // Sets the HTTP status code of the response (eg. 200 for success, 404 for not found)
  res.sendStatus() // Sets the HTTP status and sends its associated message (e.g., res.sendStatus(404) sends "Not Found").
  res.redirect() // Redirects the client to a different URL. 
+
+
+
 
 // A Full server.js file with GET & POST requests----------------------------------
 

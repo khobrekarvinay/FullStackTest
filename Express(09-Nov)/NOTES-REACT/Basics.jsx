@@ -38,7 +38,7 @@
 // React Native allows you to build mobile apps using the same architecture and knowledge.
 // In JS, No native solution for cross-platform development. Separate tools are required for mobile apps.
 
-//8. 
+//8. Virtual DOM 
 
 
 
@@ -67,7 +67,63 @@
 //  Prevents DOM re-render and Increasing performance.
 
 
-// 
+/// What are Functional Components ? ----------------------------------------------------
+//-> A functional component in React is a simple JavaScript function that returns JSX (JavaScript XML) to render UI elements.
+// After Hooks were added in React, functional components can now hold state and handle side-effects like class components. 
+
+// No need to use constructors, this keyowrd or lifecycle methods for most cases. No need for class components at all. 
+
+
+
+/////// What are Props ? --------------------------------------------------------------
+//-> Props (short for properties) are used to pass data from parent components to child components.
+// Think of props like arguments you give to a function. Similarly, you pass props to a component so it can use that data. 
+
+function Child(data) { // You can name it anything.
+
+    return <h1>{data.message}</h1>; // Receiving data from parent component
+  }
+  function Parent() {
+    return <Child message="Hello, World!" />; // Sending data to child component. 
+  }
+  
+// Now about Props Drilling. Example....
+
+// GrandParent component sends "theme" prop all the way to the GreatGrandChild component
+function GrandParent() {
+    return <ParentComponent theme="dark" />;
+  }
+  // ParentComponent doesn't use "theme" but still passes it down
+  function ParentComponent(info) {
+    return <ChildComponent theme={info.theme} />;
+  }
+  // ChildComponent doesn't use "theme" but passes it further
+  function ChildComponent(abc) {
+    return <GreatGrandChild theme={abc.theme} />;
+  }
+  // GreatGrandChild finally uses the "theme" prop
+  function GreatGrandChild(config) {
+    return <h1>The selected theme is {config.theme}</h1>;
+  }
+  
+// App has the data (userName). Child needs the data, but it is passed through Parent, even though Parent doesn’t use it.
+
+// This is Props Drilling, passing props from layer to layer instead of directly passing it. It becomes a problem when...
+// - If you change something, every component in the chain updates. 
+
+// To solve this we use global state through ContextAPI and Redux Library. 
+
+
+//| Feature          | Props                                     | State                                    |
+//|------------------|-------------------------------------------|------------------------------------------|
+//| What is it?      | Props are used to pass data from parent   | State is used to manage data             |
+//|                  | to child components.                      | *inside* a component.                    |
+//| Who updates it?  | Parent component sets and passes props.   | The component itself manages and         |
+//|                  |                                           | updates its state.                       |
+//| Read/Write       | Props are *read-only* (cannot be          | State is *mutable* (can be updated       |
+//|                  | changed).                                 | using `setState` or `useState`).         |
+//| Usage            | Useful for passing data and configuration | Useful for tracking changes, like user   |
+//|                  | to child components.                      | inputs or toggles, within a component.   |
 
 
 

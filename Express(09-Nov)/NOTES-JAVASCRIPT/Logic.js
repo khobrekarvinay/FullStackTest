@@ -1,8 +1,101 @@
-// DATA STRUCTURES & ALGO --------------------------------------
+
+//___________________________________________________________________________________________________________________________
+
+//Q. REST PARAMETER 
+// The rest parameter is used in function arguments to collect multiple arguments into a single array. 
+
+function multiply(factor, ...nums) {
+    return nums.map(num => num * factor);
+  }
+  console.log(multiply(2, 1, 2, 3)); // Output: [2, 4, 6]
+  
+  function concatenateStrings(...strings) {
+    return strings.join(" ");
+  }
+  console.log(concatenateStrings("Hello", "World", "!")); // Output: "Hello World !"
+  
+
+//Q. SPREAD OPERATOR ------------------------------------
+//-> The spread operator is used to spread out the elements of an array or the properties of an object into individual elements or properties.
+
+const numbers4 = [1, 2, 3];
+console.log(...numbers4); // Output: 1 2 3
+
+// Combining Arrays
+const arr3 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = [...arr3, ...arr2];
+console.log(combined); // Output: [1, 2, 3, 4, 5, 6]
+
+// Cloning an object
+const original = { a: 1, b: 2 };
+const copy = { ...original };
+console.log(copy); // Output: { a: 1, b: 2 }
+console.log(original === copy); // Output: false (different objects)
+
+
+// Usecase where both is used: ------------------------
+
+const fetchedUserData = {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    age: 30,
+  };
+  // Populate Form Fields
+  const [formData, setFormData] = React.useState({ ...fetchedUserData });// copies the object into state
+  
+  // Display the data in the form
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData, // Keep other fields the same
+      [name]: value, // Update only the changed field
+      // Object destructing
+    });
+  }
 
 
 
-///Q. What are the different types of Loops in Jscript ? --------------------------
+//___________________________________________________________________________________________________________________________
+
+//Q. OBJECT DESTRUCTING
+
+//-> Object Destructuring in JavaScript is a syntax that allows you to extract and modify values from objects and assign them to variables in a more concise way.
+//  It simplifies accessing object properties without explicitly referencing the object multiple times.
+
+const person1 = {
+    name: "Alice",
+    age: 25,
+    city: "New York",
+  };
+  const { name, age } = person1;
+  console.log(name); // "Alice"
+  console.log(age);  // 25
+  
+// Add variables with destructuring------------
+const user = { username: "john_doe" };
+const { username, age1 = 30 } = user;
+console.log(username); // "john_doe"
+console.log(age1);      // 30 (default value)
+
+//Rename variables**-------------
+const employee = { id: 101, role: "developer" };
+const { id: employeeId, role: jobTitle } = employee;
+console.log(employeeId); // 101
+console.log(jobTitle);   // "developer"
+
+// Rest Operator with Destructuring......
+// You can use the rest operator (...) to collect the remaining proerpties of an object
+const person2 = { name: "Alice", age: 25, city: "New York" };
+const { name2, ...rest } = person;
+console.log(name); // "Alice"
+console.log(rest); // { age: 25, city: "New York" }
+
+
+//___________________________________________________________________________________________________________________________
+
+///Q. What are the different types of Loops in Jscript ? -----------------------------------------------
+
 //-> In JavaScript, loops are used to repeatedly execute a block of code as long as a condition is true.
 
 //1. For loop: ----------------
@@ -74,10 +167,11 @@ for (let i = 0; i < 5; i++) {
 fruits.forEach((fruit) => {
     console.log(fruit); // Outputs: apple, banana, cherry
   });
-  
 
+//___________________________________________________________________________________________________________________________
 
 ////Q. What is the difference between map(), filter() and reduce() ? ------------------------------------------------
+
 //-> All are array methods used for processing arrays.
 
 // Map(): Used to apply a function to every element in the array & create a new array with the transformed elements. 
@@ -98,17 +192,58 @@ const sum = numbers3.reduce((accumulator, currentValue) => accumulator + current
 console.log(sum); // Output: 10
 
 
-////Q. What is a Callback ?
-//-> A function passed to another function to be executed later. 
-// Eg: map(), filter(), and reduce() are methods that take a callback and apply it to each item in the array.
-// Instead of writing the logic inside the map(), filter(), or reduce() method itself, you can create a separate function (callback) and pass it in.
+//_______________________________________________________________________________________________________
 
-// It's called 'Callback' because it's being called again for each element. 
+///Q. Difference between slice and splice.
+
+//-> Slice() is used to extract a portion of an array without modifying the original array. 
+//Syntax: array.slice(start,end)
+
+let arr = [1, 2, 3, 4, 5];
+let slicedArr = arr.slice(1, 4);
+
+console.log(slicedArr); // [2, 3, 4]
+console.log(arr);       // [1, 2, 3, 4, 5] (original array is unchanged)
+
+
+// Splice() is used to add or remove elements from an array and it modifies the original array.
+// Syntax: array.splice(start, deleteCount, item1, item2, ...)
+
+// item1, item2 are items to be added to the array from the start position. there is no end position.
+
+let arr1 = [1, 2, 3, 4, 5];
+let removedElements = arr1.splice(1, 2); // removes 2 elements from index 1
+
+console.log(removedElements); // [2, 3] (removed elements)
+console.log(arr1);             // [1, 4, 5] (modified array)
+
+
+//Q. Which method is used to retrieve a character from a certain index? ----------------------
+
+//-> We can retrieve a character from a certain index with the help of charAt() function method. 
+
+
 
 
 
 // --------------------------------------------------------------------------------- // 
 
+// // Use while loop and print following pattern:
+//n = 19
+//1 2 3 4 5 * * * * * 11 12 13 14 15 * * * *
+ function abc(){
+let i=0;
+let output=""
+while (i <= 19) {
+  if ((i >= 6 && i <= 10) || (i >= 16 && i <= 19)) {
+    output += "*";
+  } else {
+    output += i + " ";
+  }
+  i++;
+}
+console.log(output);
+ }
 
 // 1. Reverse a string
 //-> Push elements in array in reverse order
@@ -286,7 +421,7 @@ function bubbleSort(arr){
         for (let j=0; j<n-i-1; j++){
 
             if (arr[j] > arr[j+1]){
-                [arr[j], arr[j+1]]= [arr[j+1], arr[j]];
+                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
                 // swapping without temp
             }
         }
@@ -359,7 +494,7 @@ console.log(areAnnagrams("silent", "listen"));
 
 function missing(arr) {
     const n = arr.length + 1; 
-    const expectedSum = (n * (n + 1)) / 2; 
+    const expectedSum = (n * (n + 1)) / 2; // Normal sum of n formula
     const arrSum = arr.reduce((a, b) => a + b, 0);
     return (`Missing number is ${expectedSum - arrSum}`);
   }
@@ -636,7 +771,7 @@ return result.length === 0
 }
 
 
-//23. Filtering and Transforming Objects
+//23. Filtering & Transforming Objects
 // You are given an array of objects representing products in a store. Each object has three
 // properties: name, category, and price. Write a function called filterAndTransformProducts that
 // filters the products by a given category and then returns an array of strings where each string is
@@ -664,7 +799,7 @@ const products = [
   console.log(filterAndTransformProducts(products, "Electronics"));
 
 
-//24. Grouping and Summing Properties
+//24. Grouping & Summing Properties
 // You are given an array of objects representing orders in a restaurant. Each object has three
 // properties: orderId, tableNumber, and amount. Write a function called sumByTable that returns
 // an object where each key is a tableNumber and the value is the total amount for that table.
@@ -695,7 +830,7 @@ const orders = [
   // Output: { 1: 30, 2: 80, 3: 40 }
 
 
-//25. Nested Objects and Property Counting
+//25. Nested Objects & Property Counting
 // You are given an array of objects representing students. Each object has a name property and a
 // subjects property, which is an array of strings representing the subjects the student is enrolled
 // in. Write a function called countSubjects that returns an object where each key is a subject and
@@ -754,55 +889,3 @@ const inventory = [
 
 
 
-  // DYNAMIC PROGRAMMING : 
-
-  // -> Dynamic Programming (DP) is an optimization technique used to solve complex problems
-  // by breaking them down into smaller, simpler subproblems. 
-  // Eg:- For example, in the Fibonacci sequence, fib(5) requires solving fib(4) and fib(3), 
-  // and these in turn require solving fib(3), fib(2), and so on. The same subproblems are solved multiple times.
-
-// 1. Fibonacci Sequence
-// Find the nth number in the Fibonacci sequence:
-// Fib(0) = 0
-// Fib(1) = 1
-// Fib(n) = Fib(n-1) + Fib(n-2) for n >= 2
-
-// First is the recursive approach, calling function again for n-1 and n-2 
-
-function fibonacci(n) {
-    if (n <= 1) {
-        return n;
-    }
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-//The recursive Fibonacci function calls itself multiple times for the same inputs, resulting in an inefficient solution
-// due to repeated calculations. 
-// Here fibo(5) calls fibo(4) & fibo(3) then fibo (3) calls 2 & 1, fibo(2) calls 1 & 0. Then same separate recursion
-// for the fibo(4). Here in fibo(4) instead of calculating fibos 3 & 2 again we could have used the value from calculations
-// we did previously. Here's how to do that.....
-
-function fibonacci(n, fibo = {}) {
-    if (n <= 1) return n;
-    if (fibo[n]) return fibo[n];
-
-    fibo[n] = fibonacci(n - 1, fibo) + fibonacci(n - 2, fibo);
-    return memo[n];
-}
-
-// We create fibo object to store values of lower fibo calculations so to not recalculate the fibo value if the value
-// already exists inside the object. Same recursion happens here too. Fibonacci(5) calls Fibonacci(4) & Fibonacci(3).
-// The second part is calculated later. Then Fibonacci(4) calls Fibonacci 3 & 2. And then Fibonacci(3) calls 2 and 1.
-// Fibonacci(2) calls 1 & 0. After this fibo[2] will get value as 1. This will be used for rest of the calculations
-// if fibo[2] is needed without needing any recalculations. The if statement handles that. If fibo[n] for that value of
-// n aleady exists then return it, skip the recursive calculation and move on to the next calculation.
-
-// This may seem like a small change, like here we only skipped around 4-5 additional calculations but take this for a 
-// bigger n. Say the factorial of 10k. The difference is exponential. 
-
-// Let's compare in Time complexities. In Normal recursion method we are using recursion twice and each recursion goes under 
-// further recursion n times. Time complexity comes out to be 2^n which for n=10k becomes 2^10k which is a crazy number. 
-// This will take the computer billions of years of calculate. It's no joke. 
-// For Dynamic recursion one we are calculating the fibo for a specific n only once and storing it in object to be used 
-// again in further calculations. So for a n we only calculate fibo[n] once. Time complexity here is n which is 10,000.
-// Computer will be done calculating this one within one second. 
