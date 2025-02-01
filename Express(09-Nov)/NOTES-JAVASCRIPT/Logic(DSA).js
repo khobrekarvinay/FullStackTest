@@ -668,6 +668,33 @@ function findMedianSortedArrays(nums1, nums2) {
     }
 }
 
+//16b. Merge two arrays into a single array by alternating elements from each. 
+// Input
+// mergeAlternatingDeep([1, 2, 3], ['a', 'b', 'c', 'd', 'e']);
+ 
+// output 
+// [1, 'a', 2, 'b', 3, 'c', 'd', 'e']
+
+function merge(arr1, arr2){
+    result=[];
+    var arr3= Math.max(arr1.length, arr2.length);
+    for(let i=0; i<arr3; i++){
+        if(i< arr1.length){
+                    result.push(arr1[i]);
+        }
+        if(i< arr2.length) {
+            result.push(arr2[i]);
+        }
+    }
+    
+        console.log(result);
+    }
+
+console.log(merge([1,2,3], ['a', 'b', 'c', 'd', 'e']));
+
+
+
+
 
 //17. Find the factorial of a number
 

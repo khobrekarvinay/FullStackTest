@@ -100,6 +100,7 @@ app.listen(3000, () => {
   console.log('Server running on http://localhost:3000');
 });
 
+//____________________________________________________________________________________________________________________________________
 
 ////Q. What are Middlewares ---------------------------------------------------------------
 
@@ -171,6 +172,7 @@ app.listen(3000, () => {
 // Some like Error-handling middleware should typically be defined last to catch errors from all preceding middleware and route handlers.
 
 
+//____________________________________________________________________________________________________________________
 
 ////Q. What is CORS ?----------------------------------------------------------------------
 
@@ -190,7 +192,13 @@ app.use(express.json()) // Add this line in main server file
 
 //express.json() is a built-in middleware in Express, it auto parses incoming requests with JSON payloads and makes the data available
 // in req.body as a JavaScript object.
+// Without express.json(), the JSON data in the request body is not automatically parsed, so it doesn’t populate req.body. 
+// In other words, when you send JSON data to the server, Express doesn’t know how to handle the raw JSON data unless express.json() middleware is used to parse it. So req.body will remain undefined.
+
 // express.json() also manages parsing errors for malformed JSON, so if a client sends invalid JSON, the middleware will respond with a 400 Bad Request error.
+
+
+
 
 
 
