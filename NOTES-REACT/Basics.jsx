@@ -24,8 +24,8 @@
 // This allows React to minimize DOM manipulation and improve performance.
 
 //3. State Management.
-// Yes. React uses useState (or useReducer) for local state and libraries like Redux/Context for global state. In Javascript,
-// No built in system.  You need to manage state manually (e.g., with variables or custom patterns).
+// Yes. React uses useState (or useReducer) for local state and libraries like Redux/Context for global state. 
+// In JS, No built in system.  You need to manage state manually (e.g., with variables or custom patterns).
 
 //3b. Hooks.
 // React introduced Hooks in version 16.8, which provide a way to use state and other React features without writing class components.

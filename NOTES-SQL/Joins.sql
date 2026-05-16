@@ -40,8 +40,8 @@ Bob  	Keyboard
 -- It returns all values from the left table. Left table is the one you write after FROM and before JOIN 
 -- In this case let's take user table as the left and orders as the right.
 SELECT users.name, orders.product
-FROM users
-LEFT JOIN orders ON users.id = orders.user_id;
+FROM users LEFT JOIN orders
+ ON users.id = orders.user_id;
 
 --Output
 name	product
